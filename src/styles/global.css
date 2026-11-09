@@ -1,0 +1,261 @@
+/* ═══════════════════════════════════════════════════════════
+   Global Styles — Birthday Experience
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CSS Reset ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ── Custom Properties ──────────────────────────────────── */
+:root {
+  /* Colors */
+  --color-bg: #fff7f9;
+  --color-bg-subtle: #ffeaf1;
+  --color-bg-card: rgba(255, 255, 255, 0.78);
+  --color-gold: #d64573;
+  --color-gold-light: #f3a8c1;
+  --color-gold-dark: #9e1f4a;
+  --color-warm: #d42646;
+  --color-text: #441a2b;
+  --color-text-muted: #7c5964;
+  --color-text-dim: #a77f8d;
+  --color-accent: #c51e4b;
+  --color-overlay: rgba(63, 18, 31, 0.76);
+  --color-glass: rgba(255, 255, 255, 0.58);
+  --color-glass-border: rgba(197, 22, 58, 0.18);
+
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-handwritten: 'Dancing Script', cursive;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-round: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(212, 168, 83, 0.15);
+  --shadow-glow-strong: 0 0 40px rgba(212, 168, 83, 0.25);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+/* ── Body ───────────────────────────────────────────────── */
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 247, 249, 0.96) 18%, rgba(255, 233, 239, 0.92) 50%, rgba(255, 219, 228, 0.94) 100%);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.9), transparent 30%),
+    radial-gradient(circle at 80% 10%, rgba(249, 194, 212, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0));
+}
+
+/* ── Scrollbar Styling ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 83, 0.3);
+  border-radius: var(--radius-round);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 168, 83, 0.5);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 83, 0.3) var(--color-bg);
+}
+
+/* ── Selection ──────────────────────────────────────────── */
+::selection {
+  background: rgba(212, 168, 83, 0.3);
+  color: var(--color-gold-light);
+}
+
+/* ── Utility Classes ────────────────────────────────────── */
+
+/* Text */
+.text-gold { color: var(--color-gold); }
+.text-gold-light { color: var(--color-gold-light); }
+.text-warm { color: var(--color-warm); }
+.text-muted { color: var(--color-text-muted); }
+.text-dim { color: var(--color-text-dim); }
+.text-center { text-align: center; }
+
+/* Fonts */
+.font-display { font-family: var(--font-display); }
+.font-handwritten { font-family: var(--font-handwritten); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Display */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Sizing */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.h-screen {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+
+/* Position */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inset-0 { inset: 0; }
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+}
+
+/* Screen base */
+.screen {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.8), transparent 42%),
+    linear-gradient(180deg, rgba(255, 247, 249, 0.68), rgba(255, 230, 236, 0.82));
+}
+
+/* MusicPlayer equalizer animation */
+@keyframes eq-bounce {
+  0%   { height: 3px; }
+  100% { height: 10px; }
+}
+
+.music-volume { width: 70px; accent-color: var(--color-gold); }
+.music-source { color: var(--color-gold-dark); font: 600 9px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 480px) {
+  .music-player { right: 14px !important; bottom: 14px !important; }
+  .sfx-toggle { left: 14px; bottom: 14px; }
+  .music-volume { width: 56px; }
+}
+
+/* ── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

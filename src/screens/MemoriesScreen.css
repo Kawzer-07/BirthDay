@@ -1,0 +1,333 @@
+/* ─── Memories Screen ─────────────────────────────────── */
+
+.memories-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #0d0b0e;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(139, 92, 42, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(180, 120, 60, 0.06) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 4rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle noise texture overlay */
+.memories-screen::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.memories-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Title ───────────────────────────────────────────── */
+
+.memories-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: #f5d9a0;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  text-shadow: 0 0 30px rgba(245, 217, 160, 0.3);
+}
+
+/* ─── Gallery Layout ──────────────────────────────────── */
+
+.memories-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1100px;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* ─── Polaroid Card ───────────────────────────────────── */
+
+.polaroid-wrapper {
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.polaroid {
+  background: #fefefe;
+  padding: 10px 10px 40px;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.2);
+  width: 220px;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+}
+
+.polaroid:hover {
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.polaroid-image-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  background: #1a1520;
+  position: relative;
+}
+
+.polaroid-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder for missing images */
+.polaroid-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1520 0%, #2a2030 100%);
+  color: #8a7a9a;
+  gap: 8px;
+}
+
+.polaroid-placeholder svg {
+  opacity: 0.5;
+}
+
+.polaroid-placeholder span {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.polaroid-caption {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.95rem;
+  color: #3a3a3a;
+  text-align: center;
+  margin-top: 8px;
+  line-height: 1.3;
+}
+
+/* ─── Tape decoration ────────────────────────────────── */
+
+.polaroid-tape {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 235, 180, 0.5);
+  z-index: 2;
+}
+
+.polaroid-tape--top-left {
+  top: -8px;
+  left: -10px;
+  transform: rotate(-15deg);
+}
+
+.polaroid-tape--top-right {
+  top: -8px;
+  right: -10px;
+  transform: rotate(15deg);
+}
+
+.polaroid-tape--center {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+}
+
+/* ─── Pin decoration ─────────────────────────────────── */
+
+.polaroid-pin {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ff6b6b, #c0392b);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+/* ─── Float animation ────────────────────────────────── */
+
+@keyframes polaroidFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.polaroid-float {
+  animation: polaroidFloat 4s ease-in-out infinite;
+}
+
+/* ─── Photo Modal ─────────────────────────────────────── */
+
+.memories-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  cursor: pointer;
+}
+
+.memories-modal-content {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  cursor: default;
+}
+
+.memories-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+  z-index: 10;
+}
+
+.memories-modal-close:hover {
+  color: #fff;
+}
+
+.memories-modal-polaroid {
+  background: #fefefe;
+  padding: 16px 16px 60px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.memories-modal-image-container {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #1a1520;
+}
+
+.memories-modal-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.memories-modal-caption {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: #3a3a3a;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* ─── Continue Button ─────────────────────────────────── */
+
+.memories-continue-btn {
+  margin-top: 3rem;
+  padding: 14px 48px;
+  background: linear-gradient(135deg, #c9942e, #e6b44c);
+  color: #1a0e00;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 4px 20px rgba(201, 148, 46, 0.3),
+    0 0 40px rgba(201, 148, 46, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.memories-continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 30px rgba(201, 148, 46, 0.4),
+    0 0 60px rgba(201, 148, 46, 0.15);
+}
+
+.memories-continue-btn:active {
+  transform: translateY(0);
+}
+
+/* Consistent gallery rhythm and two-column mobile alignment. */
+.memories-screen { justify-content: center; padding: clamp(28px, 6vh, 60px) 20px 90px; }
+.memories-gallery { gap: clamp(18px, 3vw, 32px); max-width: 1050px; margin-inline: auto; }
+.polaroid-wrapper { display: flex; justify-content: center; }
+
+/* ─── Mobile ──────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .memories-screen {
+    padding: 1.5rem 0.5rem 3rem;
+  }
+
+  .memories-gallery {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .polaroid {
+    width: 260px;
+    padding: 12px 12px 44px;
+  }
+
+  .polaroid-image-container {
+    width: 236px;
+    height: 236px;
+  }
+}
+
+@media (max-width: 768px) {
+  .memories-screen { justify-content: flex-start; padding: 30px 16px 96px; }
+  .memories-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; padding: 4px; }
+  .polaroid { width: min(100%, 260px); padding: 9px 9px 36px; }
+  .polaroid-image-container { width: 100%; height: auto; aspect-ratio: 1; }
+  .polaroid-caption { font-size: clamp(.74rem, 3vw, .95rem); }
+}
+@media (max-width: 380px) { .memories-gallery { grid-template-columns: 1fr; }.polaroid { width: min(76vw, 260px); } }
+
+/* ─── Reduced motion ──────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .polaroid-float {
+    animation: none;
+  }
+}
+
+/* Light white-and-red celebration theme */
+.memories-screen { background: radial-gradient(ellipse at 20% 20%, #fff 0, #fff2f3 45%, #ffe0e5 100%); }
+.memories-title { color: #a71130; text-shadow: 0 0 24px rgba(207, 27, 62, .18); }
+.polaroid { background: #fff; box-shadow: 0 5px 20px rgba(138, 24, 48, .18); }
+.polaroid-image-container { background: #fff0f2; }.polaroid-placeholder { background: linear-gradient(135deg, #fff5f6, #ffe4e8); color: #b74359; }
+.polaroid-caption,.memories-modal-caption { color: #7a1b31; }.memories-modal-overlay { background: rgba(92, 8, 28, .42); }.memories-modal-polaroid { background: #fff; }
+.memories-continue-btn { background: linear-gradient(135deg, #dd294c, #ad1231); color: #fff; box-shadow: 0 5px 22px rgba(190, 18, 53, .25); }
